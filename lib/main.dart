@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:github/github.dart';
+import 'package:window_to_front/window_to_front.dart';
+
 import 'github_oauth_credentials.dart';
 import 'src/github_login.dart';
+import 'src/github_summary.dart';
+// ignore: unused_import
+import 'dart:ui';
 
 void main() {
   runApp(const MyApp());
@@ -30,14 +36,13 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GithubLoginWidget(
       builder: (context, httpClient) {
+        WindowToFront.activate(); // and this.
         return Scaffold(
           appBar: AppBar(
             title: Text(title),
           ),
-          body: const Center(
-            child: Text(
-              'You are logged in to GitHub!',
-            ),
+          body: GitHubSummary(
+            gitHub: _getGitHub(httpClient.credentials.accessToken),
           ),
         );
       },
@@ -46,4 +51,8 @@ class MyHomePage extends StatelessWidget {
       githubScopes: githubScopes,
     );
   }
+}
+
+GitHub _getGitHub(String accessToken) {
+  return GitHub(auth: Authentication.withToken(accessToken));
 }

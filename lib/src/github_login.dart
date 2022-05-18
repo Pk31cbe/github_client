@@ -8,6 +8,9 @@ final _authorizationEndpoint =
     Uri.parse('https://github.com/login/oauth/authorize');
 final _tokenEndpoint = Uri.parse('https://github.com/login/oauth/access_token');
 
+// final accessToken = httpClient.credentials.accessToken;
+// final gitHub = GitHub(auth: Authentication.withToken(accessToken));
+
 class GithubLoginWidget extends StatefulWidget {
   const GithubLoginWidget({
     required this.builder,
